@@ -1,0 +1,9 @@
+{
+  "name": "app-money-track",
+  "version": "1.0.0",
+  "description": "MoneyTrack personal finance management",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./public/assets/css/input.css -o ./public/assets/css/output.css --minify",
+    "watch:css": "npx tailwindcss -i ./public/assets/css/input.css -o ./public/assets/css/output.css --watch"
+  }
+}
