@@ -99,17 +99,18 @@ class TransactionController
         $categoryId = (int)($_POST['category_id'] ?? 0);
         $amount = (float)str_replace(['.', ',', ' '], ['', '.', ''], $_POST['amount'] ?? '0');
         $transactionDate = trim($_POST['transaction_date'] ?? date('Y-m-d'));
+        $redirectTo = ($_POST['redirect_to'] ?? '') === 'dashboard' ? 'dashboard' : 'transactions';
 
         // Validation
         if (empty($description)) {
             $_SESSION['_flash_error'] = 'Deskripsi transaksi wajib diisi.';
-            header('Location: ' . base_url('transactions'));
+            header('Location: ' . base_url($redirectTo));
             exit;
         }
 
         if ($amount <= 0) {
             $_SESSION['_flash_error'] = 'Nominal transaksi harus lebih dari 0.';
-            header('Location: ' . base_url('transactions'));
+            header('Location: ' . base_url($redirectTo));
             exit;
         }
 
@@ -121,7 +122,7 @@ class TransactionController
         $account = $this->accountModel->getByIdAndUserId($accountId, $userId);
         if (!$account) {
             $_SESSION['_flash_error'] = 'Rekening pembayaran tidak valid.';
-            header('Location: ' . base_url('transactions'));
+            header('Location: ' . base_url($redirectTo));
             exit;
         }
 
@@ -129,7 +130,7 @@ class TransactionController
         $category = $this->categoryModel->getByIdAndUserId($categoryId, $userId);
         if (!$category) {
             $_SESSION['_flash_error'] = 'Kategori transaksi tidak valid.';
-            header('Location: ' . base_url('transactions'));
+            header('Location: ' . base_url($redirectTo));
             exit;
         }
 
@@ -144,7 +145,7 @@ class TransactionController
         );
 
         $_SESSION['_flash_success'] = "Transaksi \"{$description}\" berhasil dicatat.";
-        header('Location: ' . base_url('transactions'));
+        header('Location: ' . base_url($redirectTo));
         exit;
     }
 

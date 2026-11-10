@@ -531,3 +531,35 @@ INSERT INTO bills (user_id, service_name, description, amount, billing_date, bil
 (1, 'Adobe Creative Cloud', 'Paket semua aplikasi kreatif Illustrator, Photoshop & Premiere', 500000, '2026-06-16', 'Tahunan', 'adobe'),
 (1, 'Spotify Family', 'Streaming musik bebas iklan untuk 6 anggota keluarga', 86000, '2026-06-22', 'Bulanan', 'spotify'),
 (1, 'Internet & WiFi Fiber', 'Koneksi internet broadband rumah kecepatan hingga 100 Mbps', 375000, '2026-06-28', 'Bulanan', 'wifi');
+
+
+-- =====================================================
+-- 15. TABLE GOALS (TARGET KEUANGAN)
+-- =====================================================
+
+CREATE TABLE IF NOT EXISTS goals (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT UNSIGNED NOT NULL,
+    title VARCHAR(120) NOT NULL,
+    description VARCHAR(255) DEFAULT NULL,
+    category_tag VARCHAR(50) NOT NULL DEFAULT 'Tabungan',
+    target_amount DECIMAL(15,2) NOT NULL,
+    current_amount DECIMAL(15,2) NOT NULL DEFAULT 0,
+    monthly_target DECIMAL(15,2) NOT NULL DEFAULT 0,
+    deadline_date DATE NOT NULL,
+    icon VARCHAR(50) NOT NULL DEFAULT 'target',
+    status ENUM('active', 'completed') NOT NULL DEFAULT 'active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_goals_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
+
+-- Data Target Keuangan Awal (Section 10)
+INSERT INTO goals (user_id, title, description, category_tag, target_amount, current_amount, monthly_target, deadline_date, icon, status) VALUES
+(1, 'Dana Darurat 6 Bulan', 'Cadangan dana aman untuk kebutuhan pokok keluarga minimal 6 bulan ke depan.', 'Dana Darurat', 30000000, 22500000, 2500000, '2027-03-31', 'shield', 'active'),
+(1, 'DP Rumah Pertama', 'Tabungan uang muka hunian dan biaya administrasi akad KPR.', 'Properti', 120000000, 78000000, 5000000, '2027-12-20', 'home', 'active'),
+(1, 'Upgrade Laptop Kerja', 'Perangkat produktivitas spesifikasi tinggi untuk pekerjaan desain & pengembangan.', 'Teknologi', 24000000, 24000000, 2000000, '2026-11-10', 'laptop', 'completed'),
+(1, 'Dana Liburan & Keluarga', 'Anggaran perjalanan dan akomodasi liburan akhir tahun bersama keluarga.', 'Travel', 15000000, 6500000, 1500000, '2027-06-15', 'plane', 'active');

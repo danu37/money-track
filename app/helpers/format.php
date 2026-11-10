@@ -105,7 +105,11 @@ if (!function_exists('asset')) {
      */
     function asset(string $path): string
     {
-        return base_url('assets/' . ltrim($path, '/'));
+        $cleanPath = ltrim($path, '/');
+        $fullPath = __DIR__ . '/../../public/assets/' . $cleanPath;
+        $version = file_exists($fullPath) ? '?v=' . filemtime($fullPath) : '';
+
+        return base_url('assets/' . $cleanPath) . $version;
     }
 }
 

@@ -39,3 +39,183 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #9CA3AF;
 }
+
+/* =====================================================
+ * MoneyTrack Entrance & Micro Animations
+ * Clean, subtle SaaS motion respecting reduced-motion
+ * ===================================================== */
+@keyframes mtFadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes mtFadeSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes mtFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes mtScaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes mtDrawLine {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes mtRingProgress {
+  0% {
+    stroke-dashoffset: var(--ring-circumference, 251.33);
+  }
+  100% {
+    stroke-dashoffset: var(--ring-offset, 0);
+  }
+}
+
+.mt-enter {
+  animation: mtFadeSlideUp 0.48s cubic-bezier(0.16, 1, 0.3, 1) var(--mt-delay, 0ms) both;
+}
+
+.mt-enter-soft {
+  animation: mtFadeSlideUp 0.34s cubic-bezier(0.16, 1, 0.3, 1) var(--mt-delay, 0ms) both;
+}
+
+.mt-navbar-enter {
+  animation: mtFadeSlideDown 0.36s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.mt-sidebar-enter {
+  animation: mtFadeIn 0.35s ease-out both;
+}
+
+.mt-auth-enter {
+  animation: mtFadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--mt-delay, 0ms) both;
+}
+
+/* Dashboard staggered card entrances */
+.mt-dashboard-top > * {
+  animation: mtFadeSlideUp 0.48s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.mt-dashboard-top > *:nth-child(1) { animation-delay: 40ms; }
+.mt-dashboard-top > *:nth-child(2) { animation-delay: 100ms; }
+.mt-dashboard-top > *:nth-child(3) { animation-delay: 160ms; }
+
+.mt-dashboard-bottom > * {
+  animation: mtFadeSlideUp 0.48s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.mt-dashboard-bottom > *:nth-child(1) { animation-delay: 220ms; }
+.mt-dashboard-bottom > *:nth-child(2) { animation-delay: 280ms; }
+
+/* Auto-stagger page sections & summary grids on subpages */
+main > .space-y-6:not(.mt-dashboard-page) > :not(.grid):not(.fixed):not([id$="-modal"]) {
+  animation: mtFadeSlideUp 0.44s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+main > .space-y-6:not(.mt-dashboard-page) > :not(.grid):not(.fixed):not([id$="-modal"]):nth-child(1) { animation-delay: 0ms; }
+main > .space-y-6:not(.mt-dashboard-page) > :not(.grid):not(.fixed):not([id$="-modal"]):nth-child(2) { animation-delay: 60ms; }
+main > .space-y-6:not(.mt-dashboard-page) > :not(.grid):not(.fixed):not([id$="-modal"]):nth-child(3) { animation-delay: 120ms; }
+main > .space-y-6:not(.mt-dashboard-page) > :not(.grid):not(.fixed):not([id$="-modal"]):nth-child(4) { animation-delay: 180ms; }
+main > .space-y-6:not(.mt-dashboard-page) > :not(.grid):not(.fixed):not([id$="-modal"]):nth-child(5) { animation-delay: 240ms; }
+
+main > .space-y-6:not(.mt-dashboard-page) > .grid > * {
+  animation: mtFadeSlideUp 0.44s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+main > .space-y-6:not(.mt-dashboard-page) > .grid > *:nth-child(1) { animation-delay: 60ms; }
+main > .space-y-6:not(.mt-dashboard-page) > .grid > *:nth-child(2) { animation-delay: 110ms; }
+main > .space-y-6:not(.mt-dashboard-page) > .grid > *:nth-child(3) { animation-delay: 160ms; }
+main > .space-y-6:not(.mt-dashboard-page) > .grid > *:nth-child(4) { animation-delay: 210ms; }
+main > .space-y-6:not(.mt-dashboard-page) > .grid > *:nth-child(5) { animation-delay: 260ms; }
+main > .space-y-6:not(.mt-dashboard-page) > .grid > *:nth-child(6) { animation-delay: 310ms; }
+
+main > .space-y-8 > * {
+  animation: mtFadeSlideUp 0.46s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+main > .space-y-8 > *:nth-child(1) { animation-delay: 0ms; }
+main > .space-y-8 > *:nth-child(2) { animation-delay: 60ms; }
+main > .space-y-8 > *:nth-child(3) { animation-delay: 120ms; }
+main > .space-y-8 > *:nth-child(4) { animation-delay: 180ms; }
+main > .space-y-8 > *:nth-child(5) { animation-delay: 240ms; }
+
+/* Target circular ring fill animation */
+.mt-ring-progress {
+  animation: mtRingProgress 0.95s cubic-bezier(0.16, 1, 0.3, 1) 220ms both;
+}
+
+/* Monthly expense SVG line draw & area reveal */
+.mt-chart-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: mtDrawLine 0.95s cubic-bezier(0.22, 1, 0.36, 1) 340ms both;
+}
+
+.mt-chart-area {
+  animation: mtFadeIn 0.6s ease-out 480ms both;
+}
+
+.mt-chart-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mtFadeIn 0.35s ease-out var(--mt-delay, 620ms) both;
+}
+
+/* Modal entrance support */
+.animate-in {
+  animation: mtScaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Respect OS reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .mt-enter,
+  .mt-enter-soft,
+  .mt-navbar-enter,
+  .mt-sidebar-enter,
+  .mt-auth-enter,
+  .mt-dashboard-top > *,
+  .mt-dashboard-bottom > *,
+  main > .space-y-6 > *,
+  main > .space-y-6 > .grid > *,
+  main > .space-y-8 > *,
+  .mt-ring-progress,
+  .mt-chart-line,
+  .mt-chart-area,
+  .mt-chart-dot,
+  .animate-in {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .mt-chart-line {
+    stroke-dashoffset: 0 !important;
+  }
+}

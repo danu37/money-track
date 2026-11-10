@@ -50,7 +50,7 @@
 <body class="bg-[#F5F6F8] min-h-screen flex flex-col justify-center items-center p-4 antialiased selection:bg-teal-100 selection:text-teal-700">
 
     <!-- Auth Container: Narrow, lightweight, centered with generous empty space -->
-    <div class="w-full max-w-[360px] sm:max-w-[380px] my-auto py-8">
+    <div class="w-full max-w-[360px] sm:max-w-[380px] my-auto py-8 mt-auth-enter">
         <?php if (isset($contentView) && file_exists($contentView)): ?>
             <?php include $contentView; ?>
         <?php else: ?>
@@ -59,7 +59,7 @@
     </div>
 
     <!-- Small footer copyright -->
-    <footer class="pb-6 text-center text-xs text-[#8A8F98]">
+    <footer class="pb-6 text-center text-xs text-[#8A8F98] mt-auth-enter" style="--mt-delay: 140ms;">
         &copy; <?= date('Y') ?> MoneyTrack. Hak cipta dilindungi undang-undang.
     </footer>
 

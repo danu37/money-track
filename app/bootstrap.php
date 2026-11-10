@@ -8,7 +8,7 @@ $dotenv = Dotenv::createImmutable(
     dirname(__DIR__)
 );
 
-$dotenv->load();
+$dotenv->safeLoad();
 
 // Load Helpers
 require_once __DIR__ . '/helpers/format.php';

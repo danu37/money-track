@@ -60,4 +60,77 @@ class Category
         ]);
         return (int)$this->pdo->lastInsertId();
     }
+
+    /**
+     * Get all categories with transaction count for a specific user
+     */
+    public function getAllWithCountByUserId(int $userId): array
+    {
+        $stmt = $this->pdo->prepare("
+            SELECT
+                c.*,
+                COUNT(t.id) AS transaction_count
+            FROM categories c
+            LEFT JOIN transactions t
+                ON t.category_id = c.id AND t.user_id = c.user_id
+            WHERE c.user_id = :user_id
+            GROUP BY c.id
+            ORDER BY c.type ASC, c.name ASC
+        ");
+        $stmt->execute(['user_id' => $userId]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Check if category name and type already exist for user
+     */
+    public function existsForUser(int $userId, string $name, string $type): bool
+    {
+        $stmt = $this->pdo->prepare("
+            SELECT id FROM categories
+            WHERE user_id = :user_id AND LOWER(name) = LOWER(:name) AND type = :type
+            LIMIT 1
+        ");
+        $stmt->execute([
+            'user_id' => $userId,
+            'name' => $name,
+            'type' => $type,
+        ]);
+
+        return (bool)$stmt->fetch();
+    }
+
+    /**
+     * Count transactions using a category for a user
+     */
+    public function countTransactions(int $id, int $userId): int
+    {
+        $stmt = $this->pdo->prepare("
+            SELECT COUNT(*) FROM transactions
+            WHERE category_id = :category_id AND user_id = :user_id
+        ");
+        $stmt->execute([
+            'category_id' => $id,
+            'user_id' => $userId,
+        ]);
+
+        return (int)$stmt->fetchColumn();
+    }
+
+    /**
+     * Delete category owned by user
+     */
+    public function delete(int $id, int $userId): bool
+    {
+        $stmt = $this->pdo->prepare("
+            DELETE FROM categories
+            WHERE id = :id AND user_id = :user_id
+        ");
+
+        return $stmt->execute([
+            'id' => $id,
+            'user_id' => $userId,
+        ]);
+    }
 }

@@ -5,7 +5,7 @@ $userEmail = $userEmail ?? 'danu@gmail.com';
 ?>
 
 <!-- Dark Vertical Sidebar -->
-<aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-[240px] bg-[#171717] text-white flex flex-col transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0 border-r border-[#242424]">
+<aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-[240px] bg-[#171717] text-white flex flex-col transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0 border-r border-[#242424] mt-sidebar-enter">
     
     <!-- Top Branding / Logo -->
     <div class="h-16 flex items-center justify-between px-6 border-b border-[#242424]">
